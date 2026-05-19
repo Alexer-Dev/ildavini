@@ -1,0 +1,179 @@
+---
+const vini = [
+  {
+    tag: 'Pecorino ',
+    nome: 'PECORINO d\'Abruzzo',
+    desc: 'Fresco e gradevolmente fruttato con sentori di ananas, frutta tropicale e note florcali di acacia. Fragrante ed armonico, sapore pieno, rotondo e persistente.',
+    note: 'Gradazione alcolica: 13% vol',
+    img: '/pecorino.png',
+    alt: 'Bottiglia Pecorino d\'Abruzzo Ildavini',
+  },
+  {
+    tag: 'Trebbiano · DOC',
+    nome: 'Trebbiano d\'Abruzzo',
+    desc: 'Fresco e gradevolmente fruttato (sentori di mela) con note floreali di acacia. Armonico e fragrante, vino secco, rotondo e persistente.',
+    note: 'Gradazione alcolica: 12,5% vol',
+    img: '/trebbiano.png',
+    alt: 'Trebbiano d\'Abruzzo Ildavini',
+  },
+  {
+    tag: 'Rosato · DOC',
+    nome: 'Cerasuolo d\'Abruzzo',
+    desc: 'Intenso, dai profumi fruttati spiccano sentori di ciliegia e fragola. Equilibrato, armonico e fragrante, con buona persistenza.',
+    note: 'Gradazione alcolica: 13% vol',
+    img: '/cerasuolo.png',
+    alt: 'Cerasuolo d\'Abruzzo Ildavini',
+  },
+  {
+    tag: 'Rosso · DOC',
+    nome: 'MONTEPULCIANO D-Abruzzo',
+    desc: 'Complesso ed intenso, con note di viola ed amarena. Esclusivi sentori di spezie, liquirizia e cacao. Corposo e vellutato, di notevole carica e morbida tannicità, con finale persistente e piacevole.',
+    note: 'Gradazione alcolica: 13% vol.',
+    img: '/montepulciano.png',
+    alt: 'Ildavini MONTEPULCIANO D\'Abruzzo',
+  },
+  {
+    tag: 'Rosso · DOC',
+    nome: 'MONTEPULCIANO D\Abruzzo 1-10',
+    desc: 'Frutta rossa, confettura di mora e marasca, sentori di viola. Apprezzabili nuances di vaniglia, cacao, nocciola, cuoio, liquirizia e pepe nero. Caldo, corposo. Tannino morbido ed equilibrato. Finale lungo e persistente.',
+    note: 'Gradazione alcolica: 13,5% vol.',
+    img: '/montepulciano110.png',
+    alt: 'MONTEPULCIANO D\Abruzzo 1-10 Ildavini',
+  },
+  {
+    tag: 'Rosso',
+    nome: 'GAGLIARDINO',
+    desc: 'Complesso ed intenso, con note di cacao ed amarena. Corposo e vellutato, di notevole carica e morbida tannicità, con finale persistente e piacevole.',
+    note: 'Gradazione alcolica: 13% vol.',
+    img: '/gagliardino.png',
+    alt: 'Ildavini GAGLIARDINO Rosso',
+  },
+    {
+    tag: 'Bianco',
+    nome: 'GAGLIARDINO Bianco',
+    desc: 'Fresco e gradevolmente fruttato con sentori di frutta tropicale. Fragrante ed armonico, sapore pieno, rotondo e persistente.',
+    note: 'Gradazione alcolica: 13% vol.',
+    img: '/gagliardinobianco.png',
+    alt: 'Ildavini GAGLIARDINO Bianco',
+  },
+      {
+    tag: 'Rosato',
+    nome: 'GAGLIARDINO Rosato',
+    desc: 'Intenso, dai profumi fruttati spiccano sentori di ciliegia. Equilibrato, armonico e fragrante, con buona persistenza.',
+    note: 'Gradazione alcolica: 13% vol.',
+    img: '/gagliardinorosato.png',
+    alt: 'Ildavini GAGLIARDINO Rosato',
+  }
+];
+---
+
+<section class="vini" id="vini">
+  <div class="container">
+
+    <div class="vini-header reveal">
+      <span class="section-tag">La Nostra Selezione</span>
+      <h2 class="section-title">I Nostri <em>Vini</em></h2>
+      <div class="gold-line" style="margin:1.5rem auto;"></div>
+      <p class="section-lead" style="margin:0 auto;text-align:center;">
+        “ Il vino è una delle più grandi conquiste dell’uomo, che ha trasformato un frutto perituto in qualcosa di permanente. ”
+      </p>
+    </div>
+
+    <div class="vini-grid">
+      {vini.map((vino) => (
+        <article class="vini-card reveal">
+          <div class="vini-card-img-wrap">
+            <img
+              class="vini-card-img"
+              src={vino.img}
+              alt={vino.alt}
+              loading="lazy"
+              width="600" height="400"
+            />
+          </div>
+          <div class="vini-card-body">
+            <span class="vini-tag">{vino.tag}</span>
+            <h3 class="vini-name">{vino.nome}</h3>
+            <p class="vini-desc">{vino.desc}</p>
+            <span class="vini-notes">{vino.note}</span>
+          </div>
+        </article>
+      ))}
+    </div>
+        
+  </div>
+        
+</section>
+
+<style is:global>
+.vini {
+  background: var(--cream);
+  padding: 7rem 2rem;
+}
+
+.vini-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.vini-header .section-title { text-align: center; }
+
+.vini-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+  gap: 2rem;
+}
+
+.vini-card {
+  background: var(--warm-white);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  transition: transform .3s, box-shadow .3s;
+}
+
+.vini-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 50px rgba(91,26,26,.12);
+}
+
+.vini-card-img-wrap { overflow: hidden; }
+
+.vini-card-img {
+  width: 100%; aspect-ratio: 3/4;
+  object-fit: contain; display: block;
+  padding:1.5rem ;
+  background: var(--warm-white);
+  transition: transform .4s;
+}
+
+.vini-card:hover .vini-card-img { transform: scale(1.05); }
+
+.vini-card-body { padding: 1.6rem; }
+
+.vini-tag {
+  font-size: .6rem; letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gold); margin-bottom: .5rem; display: block;
+}
+
+.vini-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem; color: var(--burgundy); margin-bottom: .5rem;
+}
+
+.vini-desc {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem; color: var(--text-light);
+  line-height: 1.65; margin-bottom: 1rem;
+}
+
+.vini-notes {
+  font-size: .7rem; letter-spacing: .15em;
+  color: var(--text-light); font-family: 'Lato', sans-serif;
+}
+
+@media (max-width: 600px) {
+  .vini { padding: 4rem 1.2rem; }
+}
+</style>

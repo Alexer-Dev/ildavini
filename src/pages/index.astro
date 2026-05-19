@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav        from '../components/Nav.astro';
+import Hero       from '../components/Hero.astro';
+import Storia     from '../components/Storia.astro';
+import Vini       from '../components/Vini.astro';
+import Gallery    from '../components/Gallery.astro';
+import Video      from '../components/Video.astro';
+import Contatti   from '../components/Contatti.astro';
+import SocialBar  from '../components/SocialBar.astro';
+import Footer     from '../components/Footer.astro';
+---
+
+<BaseLayout
+  title="IL.DA vini"
+  description="Gusto, Qualità, Passione, Storia"
+>
+  <Nav />
+  <Hero />
+  <Storia />
+  <Vini />
+  <Gallery />
+  <Video />
+  <Contatti />
+  <SocialBar />
+  <Footer />
+</BaseLayout>
+
+<script>
+  // ── Scroll Reveal ──
+  const reveals = document.querySelectorAll<HTMLElement>('.reveal');
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+  reveals.forEach(el => observer.observe(el));
+</script>

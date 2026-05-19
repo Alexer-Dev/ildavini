@@ -1,0 +1,148 @@
+---
+const images = [
+  {
+    src: 'Ilda1.jpeg',
+    alt: 'Vigneti Ildavini – Proprietari',
+    featured: true,
+  },
+  {
+    src: 'Ilda3.jpeg',
+    alt: 'Vendemmia – Famiglia al lavoro',
+  },
+  {
+    src: 'Ilda4.jpeg',
+    alt: 'Vendemmia manuale – Famiglia al lavoro',
+  },
+  {
+    src: 'Ilda5.jpeg',
+    alt: 'Vendemmia manuale – Famiglia al lavoro',
+    tall: true,
+  },
+  {
+    src: 'Ilda6.jpeg',
+    alt: 'Vendemmia manuale – Dettaglio',
+  },
+    {
+    src: 'Ilda8.jpeg',
+    alt: 'Vendemmia manuale – Dettaglio',
+  },
+      {
+    src: 'Ilda9.jpeg',
+    alt: 'Cantina Ildavini – Magazzino',
+  },
+      {
+    src: 'Ilda10.jpeg',
+    alt: 'Cantina Ildavini – Magazzino',
+  },
+      {
+    src: 'Ilda11.jpeg',
+    alt: 'Cantina Ildavini – Interiore',
+  },
+      {
+    src: 'Ilda12.jpeg',
+    alt: 'Cantina Ildavini – Interiore',
+  },
+];
+---
+
+<section class="gallery" id="gallery">
+  <div class="gallery-header reveal">
+    <span class="section-tag">Immagini</span>
+    <h2 class="section-title">La Nostra <em style="color:var(--cream);font-style:italic;">Cantina</em></h2>
+    <div class="gold-line" style="margin:1.2rem auto;"></div>
+  </div>
+
+  <div class="gallery-grid container">
+    {images.map((img) => (
+      <div class={`g-item${img.featured ? ' g-featured' : ''}${img.tall ? ' g-tall' : ''}`}>
+        <img
+          src={img.src}
+          alt={img.alt}
+          loading="lazy"
+          width="600" height="400"
+        />
+      </div>
+    ))}
+  </div>
+</section>
+
+<style is:global>
+.gallery {
+  background: var(--charcoal);
+  padding: 5rem 2rem;
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 2.5rem;
+}
+
+.gallery-header .section-tag { color: var(--gold); }
+.gallery-header .section-title { color: var(--gold); }
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 220px);
+  gap: .6rem;
+}
+
+.g-item {
+  overflow: hidden;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+}
+
+.g-item.g-featured {
+  grid-column: 1 / 3;
+  grid-row: 1 / 3;
+}
+
+.g-item.g-tall {
+  grid-column: 4;
+  grid-row: 1 / 3;
+}
+
+.g-item img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  filter: saturate(.9);
+  transition: transform .5s, filter .4s;
+}
+
+.g-item:hover img {
+  transform: scale(1.08);
+  filter: saturate(1.2);
+}
+
+.g-item::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: rgba(91,26,26,0);
+  transition: background .3s;
+}
+
+.g-item:hover::after {
+  background: rgba(91,26,26,.15);
+}
+
+@media (max-width: 900px) {
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .g-item, .g-item.g-featured, .g-item.g-tall {
+    grid-column: auto;
+    grid-row: auto;
+    height: 180px;
+  }
+}
+
+@media (max-width: 600px) {
+  .gallery { padding: 4rem 1rem; }
+  .gallery-grid { grid-template-columns: 1fr; }
+  .g-item, .g-item.g-featured, .g-item.g-tall { height: 220px; }
+}
+</style>

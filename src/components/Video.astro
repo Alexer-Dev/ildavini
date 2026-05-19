@@ -1,0 +1,80 @@
+---
+---
+
+<section class="video-section" id="video">
+  <div class="video-inner container reveal">
+    <span class="section-tag" style="text-align:center;display:block;">Scoprici in Video</span>
+    <h2 class="section-title" style="text-align:center;">
+      La <em>Magia</em> dell'Abruzzo
+    </h2>
+    <div class="gold-line" style="margin:1.2rem auto;"></div>
+    <p class="section-lead" style="margin:0 auto;text-align:center;">
+      Un viaggio tra i nostri vigneti, la cantina e la passione che trasformiamo in ogni bottiglia.
+    </p>
+
+    <div class="video-wrap">
+      <video
+        controls
+        playsinline
+        preload="metadata"
+        poster="/video1.mp4"
+      >
+        <source src="/video1.mp4" type="video/mp4" />
+      </video>
+    </div>
+        <div class="video-wrap">
+      <video
+        controls
+        playsinline
+        preload="metadata"
+        poster="/video2.mp4"
+      >
+        <source src="/video2.mp4" type="video/mp4" />
+      </video>
+    </div>
+
+    <p class="video-caption">
+      “ Dalla vigna alla bottiglia, ogni passo è un atto d'amore per la terra e il vino. ”
+    </p>
+  </div>
+</section>
+
+<style is:global>
+.video-section {
+  background: var(--warm-white);
+  padding: 7rem 2rem;
+}
+
+.video-inner {
+  max-width: 900px;
+}
+
+.video-wrap {
+  position: relative;
+  padding-bottom: 56.25%; height: 0;
+  overflow: hidden; border-radius: 4px;
+  box-shadow: 0 30px 80px rgba(91,26,26,.18);
+  margin-top: 2.5rem;
+  border: 1px solid var(--border);
+}
+
+.video-wrap video {
+  position: absolute; top: 0; left: 0;
+  width: 100%; height: 100%;
+  border: 0;
+  object-fit: cover;
+}
+
+.video-caption {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--text-light);
+  margin-top: 1rem;
+  text-align: center;
+}
+
+@media (max-width: 600px) {
+  .video-section { padding: 4rem 1.2rem; }
+}
+</style>

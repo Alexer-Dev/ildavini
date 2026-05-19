@@ -1,0 +1,147 @@
+---
+const navLinks = [
+  { href: '#storia', label: 'Storia' },
+  { href: '#vini',   label: 'I Nostri Vini' },
+  { href: '#gallery', label: 'Galleria' },
+  { href: '#video',  label: 'Video' },
+  { href: '/ildavini.pdf',  label: 'Catalogo', download: true },
+];
+---
+
+<nav id="main-nav">
+  <a class="nav-logo" href="#">
+  <img src="/logo_transparente.png" alt="IldaVini" height="45" />
+</a>
+
+  <button class="nav-toggle" id="nav-toggle" aria-label="Apri menu">
+    <span></span><span></span><span></span>
+  </button>
+
+<ul class="nav-links" id="nav-links">
+  {navLinks.map(link => (
+    <li>
+      {link.download 
+        ? <a href={link.href} download>{link.label}</a>
+        : <a href={link.href}>{link.label}</a>
+      }
+    </li>
+  ))}
+  <li><a href="#contatti" class="nav-cta">Contattaci</a></li>
+</ul>
+</nav>
+
+<style is:global>
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(26,10,10,.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  transition: padding .3s;
+}
+
+.nav-logo img {
+  height: 45px;
+  width: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+}
+
+.nav-logo span {
+  color: var(--cream);
+  font-weight: 300;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.2rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-family: 'Lato', sans-serif;
+  font-size: .78rem;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  text-decoration: none;
+  opacity: .8;
+  transition: opacity .2s, color .2s;
+}
+
+.nav-links a:hover { opacity: 1; color: var(--gold); }
+
+.nav-cta {
+  font-family: 'Cinzel', serif !important;
+  font-size: .75rem !important;
+  color: var(--dark) !important;
+  background: var(--gold);
+  padding: .5rem 1.3rem;
+  border-radius: 2px;
+  opacity: 1 !important;
+  transition: background .2s !important;
+}
+
+.nav-cta:hover { background: var(--gold-light) !important; color: var(--dark) !important; }
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: .4rem;
+}
+
+.nav-toggle span {
+  display: block;
+  width: 24px; height: 2px;
+  background: var(--cream);
+  transition: transform .3s, opacity .3s;
+}
+
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    flex-direction: column;
+    gap: 0;
+    background: rgba(26,10,10,.97);
+    border-top: 1px solid var(--border);
+    max-height: 0; overflow: hidden;
+    transition: max-height .35s ease;
+  }
+
+  .nav-links.open { max-height: 400px; }
+
+  .nav-links li { border-bottom: 1px solid var(--border); }
+  .nav-links a { display: block; padding: 1rem 1.5rem; }
+  .nav-cta { border-radius: 0 !important; }
+}
+
+
+</style>
+
+<script>
+  // Shrink nav on scroll
+  const nav = document.getElementById('main-nav')!;
+  window.addEventListener('scroll', () => {
+    nav.style.padding = window.scrollY > 60 ? '.7rem 3rem' : '1.2rem 3rem';
+  });
+
+  // Mobile toggle
+  const toggle = document.getElementById('nav-toggle')!;
+  const links  = document.getElementById('nav-links')!;
+  toggle.addEventListener('click', () => links.classList.toggle('open'));
+
+  // Close on link click
+  links.querySelectorAll('a').forEach(a =>
+    a.addEventListener('click', () => links.classList.remove('open'))
+  );
+</script>

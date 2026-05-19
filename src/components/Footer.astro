@@ -1,0 +1,58 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer>
+  <div class="footer-logo">ILDAVINI</div>
+  <p class="footer-tagline">Cantina d'Abruzzo</p>
+  <div class="footer-divider"></div>
+  <p class="footer-legal">
+    © {year} Ildavini – Cantina d'Abruzzo · Tutti i diritti riservati
+  </p>
+  <p class="footer-disclaimer">
+    Gusto, Qualità, Passione, Storia
+  </p>
+</footer>
+<footer>
+  <p class="footer-legal">
+    Creato da – <a href="https://alexerdev.com" target="_blank" class="footer-link">alexerdev.com</a> · Tutti i diritti riservati
+  </p>
+</footer>
+
+<style is:global>
+footer {
+  background: #0D0404;
+  padding: 3rem 2rem;
+  text-align: center;
+}
+
+.footer-logo {
+  font-family: 'Cinzel', serif;
+  font-size: 1.4rem; letter-spacing: .25em;
+  color: var(--gold); margin-bottom: .3rem;
+}
+
+.footer-tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic; font-size: .95rem;
+  color: rgba(200,169,110,.5); margin-bottom: 1.5rem;
+}
+
+.footer-divider {
+  width: 40px; height: 1px;
+  background: rgba(200,169,110,.25);
+  margin: 0 auto 1.5rem;
+}
+
+.footer-legal {
+  font-size: .68rem; letter-spacing: .15em;
+  text-transform: uppercase;
+  color: rgba(200,169,110,.35);
+  margin-bottom: .5rem;
+}
+
+.footer-disclaimer {
+  font-size: .62rem; letter-spacing: .1em;
+  color: rgba(200,169,110,.2);
+}
+</style>

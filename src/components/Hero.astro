@@ -1,0 +1,144 @@
+---
+---
+
+<section class="hero" id="home">
+  <div class="hero-bg"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Cantina d'Abruzzo</p>
+    <h1 class="hero-title">ILDAVINI</h1>
+    <p class="hero-subtitle">Gusto, Qualità, Passione, Storia</p>
+    <div class="hero-divider"></div>
+    <div class="hero-btns">
+      <a href="#vini" class="btn-primary">Scopri i Vini</a>
+      <a href="#storia" class="btn-outline">La Nostra Storia</a>
+    </div>
+  </div>
+  <div class="scroll-hint" aria-hidden="true">
+    <span>Scorri</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M12 5v14M5 12l7 7 7-7"/>
+    </svg>
+  </div>
+</section>
+
+<style is:global>
+.hero {
+  position: relative;
+  height: 100vh; min-height: 640px;
+  display: flex; align-items: center; justify-content: center;
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute; inset: 0;
+  background:
+    linear-gradient(160deg, rgba(91,26,26,.82) 0%, rgba(26,10,10,.55) 60%, rgba(91,26,26,.45) 100%),
+    url('https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb?w=1600&auto=format&fit=crop') center/cover no-repeat;
+}
+
+.hero-bg::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='.07'/%3E%3C/svg%3E");
+  opacity: .4; pointer-events: none;
+}
+
+.hero-content {
+  position: relative;
+  text-align: center;
+  padding: 2rem;
+  animation: fadeUp .9s ease both;
+}
+
+.hero-eyebrow {
+  font-family: 'Lato', sans-serif;
+  font-size: .7rem;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1.6rem;
+}
+
+.hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: .08em;
+  color: var(--cream);
+  margin-bottom: .4rem;
+}
+
+.hero-subtitle {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: clamp(1.1rem, 2.5vw, 1.7rem);
+  color: var(--gold-light);
+  margin-bottom: 2.5rem;
+}
+
+.hero-divider {
+  width: 60px; height: 1px;
+  background: var(--gold);
+  margin: 0 auto 2.5rem;
+  opacity: .7;
+}
+
+.hero-btns {
+  display: flex; gap: 1rem;
+  justify-content: center; flex-wrap: wrap;
+}
+
+.scroll-hint {
+  position: absolute; bottom: 2.5rem; left: 50%;
+  transform: translateX(-50%);
+  text-align: center; color: var(--gold); opacity: .6;
+  animation: bounce 2.2s infinite;
+}
+
+.scroll-hint span {
+  font-size: .6rem; letter-spacing: .25em;
+  display: block; margin-bottom: .4rem; text-transform: uppercase;
+}
+
+.scroll-hint svg { width: 20px; }
+
+/* ── Botones ── */
+.btn-primary {
+  font-family: 'Cinzel', serif;
+  font-size: .78rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  background: var(--gold);
+  color: var(--dark);
+  padding: .85rem 2.2rem;
+  border-radius: 2px;
+  transition: background .25s, transform .2s;
+  display: inline-block;
+}
+
+.btn-primary:hover {
+  background: var(--gold-light);
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  font-family: 'Cinzel', serif;
+  font-size: .78rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--gold);
+  color: var(--cream);
+  padding: .85rem 2.2rem;
+  border-radius: 2px;
+  transition: background .25s, color .25s;
+  display: inline-block;
+}
+
+.btn-outline:hover {
+  background: var(--gold);
+  color: var(--dark);
+}
+</style>

@@ -1,0 +1,93 @@
+/* ── GLOBAL STYLES – Ildavini ── */
+/* Fuentes cargadas desde BaseLayout.astro <head> */
+
+:root {
+  --burgundy:   #5B1A1A;
+  --deep-red:   #7D2727;
+  --wine:       #9B3030;
+  --gold:       #C8A96E;
+  --gold-light: #E2C98A;
+  --cream:      #F5EFE0;
+  --warm-white: #FAF6EE;
+  --dark:       #1A0A0A;
+  --charcoal:   #2C1A1A;
+  --text-light: #8B6347;
+  --border:     rgba(200,169,110,.25);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Lato', sans-serif;
+  background: var(--warm-white);
+  color: var(--charcoal);
+  overflow-x: hidden;
+}
+
+/* ── KEYFRAMES ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(8px); }
+}
+
+/* ── SCROLL REVEAL ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── TYPOGRAPHY ── */
+.section-tag {
+  font-size: .65rem;
+  letter-spacing: .35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  color: var(--burgundy);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.section-title em {
+  font-style: italic;
+  color: var(--wine);
+}
+
+.section-lead {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  color: var(--text-light);
+  line-height: 1.75;
+  max-width: 600px;
+}
+
+.gold-line {
+  width: 50px;
+  height: 2px;
+  background: var(--gold);
+  margin: 1.5rem 0;
+}
+
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
