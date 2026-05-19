@@ -167,30 +167,29 @@
 }
 
 @media (max-width: 900px) {
-  .storia { padding: 5rem 0 4rem; }  
+  .storia { padding: 5rem 0 4rem; }
 
-  .storia-inner { grid-template-columns: 1fr; gap: 0; }
-  .storia-badge { display: none; }
-  .storia-stats { gap: 1.5rem; padding: 0 1.5rem; }
+  .storia-inner { 
+    grid-template-columns: 1fr; 
+    gap: 0;
+  }
 
   .storia-img {
-    border-radius: 0;        
-    margin: 0;
+    border-radius: 0;
+    margin-left: calc(-50vw + 50%);  /* compensa cualquier padding del padre */
+    width: 100vw;
   }
 
   .storia-img img {
-    aspect-ratio: 4/3;       
-    border-radius: 0;        
-    width: 100vw;            
-    max-width: 100vw;
+    aspect-ratio: 4/3;
+    border-radius: 0;
+    width: 100%;
   }
 
-  .storia-img::before {
-    display: none;          
-  }
+  .storia-img::before { display: none; }
+  .storia-badge { display: none; }
 
-  .storia-text {
-    padding: 2rem 1.5rem;    
-  }
+  .storia-text { padding: 2rem 1.5rem; }
+  .storia-stats { gap: 1.5rem; }
 }
 </style>
