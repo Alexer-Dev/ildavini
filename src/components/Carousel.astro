@@ -1,0 +1,530 @@
+---
+const slides = [
+  { src: '/1.jpeg', alt: 'Montepulciano d\'Abruzzo Riserva 1/10 – Ilda Vini' },
+  { src: '/2.jpeg', alt: 'Gagliardino – Il Rosato della Gagliarda' },
+  { src: '/3.jpeg', alt: 'Gagliardino – Il Bianco della Gagliarda' },
+  { src: '/4.jpeg', alt: 'Gagliardino – Il Rosso della Gagliarda' },
+  { src: '/5.jpeg', alt: 'Pecorino d\'Abruzzo – Ilda Vini' },
+  { src: '/6.jpeg', alt: 'Montepulciano d\'Abruzzo – Ilda Vini' },
+  { src: '/7.jpeg', alt: 'Cerasuolo d\'Abruzzo – Ilda Vini' },
+  { src: '/8.jpeg', alt: 'Trebbiano d\'Abruzzo – Ilda Vini' },
+  { src: '/9.jpeg', alt: 'Riserva 1.10 Montepulciano d\'Abruzzo – Ilda Vini' },
+];
+---
+
+<section class="carousel-section" id="carosello" aria-label="Galleria fotografica">
+  <div class="carousel-header reveal">
+    <span class="section-tag">Galleria</span>
+    <h2 class="section-title">
+      L'Anima del Nostro <em style="color:var(--cream);font-style:italic;">Territorio</em>
+    </h2>
+    <div class="gold-line" style="margin:1.2rem auto;"></div>
+  </div>
+
+  <div class="carousel" data-carousel>
+    <div class="carousel-stage" data-stage>
+      {slides.map((s, i) => (
+        <button
+          type="button"
+          class="carousel-slide"
+          data-index={i}
+          aria-label={`Apri immagine ${i + 1} di ${slides.length}: ${s.alt}`}
+        >
+          <img
+            src={s.src}
+            alt={s.alt}
+            loading={i < 3 ? 'eager' : 'lazy'}
+            decoding="async"
+            draggable="false"
+          />
+        </button>
+      ))}
+    </div>
+
+    <button type="button" class="c-arrow c-prev" data-prev aria-label="Immagine precedente">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <button type="button" class="c-arrow c-next" data-next aria-label="Immagine successiva">
+      <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+  </div>
+
+  <p class="carousel-hint">Clicca su un'immagine per ingrandirla</p>
+
+  <!-- ── LIGHTBOX ── -->
+  <div class="lb" data-lb hidden role="dialog" aria-modal="true" aria-label="Immagine ingrandita">
+    <button type="button" class="lb-close" data-lb-close aria-label="Chiudi">
+      <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+
+    <button type="button" class="lb-arrow lb-prev" data-lb-prev aria-label="Immagine precedente">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>
+    </button>
+    <button type="button" class="lb-arrow lb-next" data-lb-next aria-label="Immagine successiva">
+      <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>
+    </button>
+
+    <div class="lb-stage" data-lb-stage>
+      <img class="lb-img" data-lb-img alt="" draggable="false" />
+    </div>
+
+    <div class="lb-bar">
+      <button type="button" class="lb-zoom" data-lb-zoom-out aria-label="Riduci zoom">−</button>
+      <span class="lb-count" data-lb-count></span>
+      <button type="button" class="lb-zoom" data-lb-zoom-in aria-label="Aumenta zoom">+</button>
+    </div>
+  </div>
+</section>
+
+<style>
+  .carousel-section {
+    background: linear-gradient(180deg, var(--burgundy) 0%, var(--dark) 100%);
+    padding: 5rem 0 3.5rem;
+    overflow: hidden;
+  }
+
+  .carousel-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    padding: 0 1.5rem;
+  }
+  .carousel-header .section-tag   { color: var(--gold); }
+  .carousel-header .section-title { color: var(--gold); }
+
+  /* ── CAROUSEL ── */
+  .carousel {
+    position: relative;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .carousel-stage {
+    --slide-w: min(360px, 62vw);
+    --slide-h: calc(var(--slide-w) * 1.5);
+    position: relative;
+    height: calc(var(--slide-h) + 2rem);
+    touch-action: pan-y;
+    user-select: none;
+  }
+
+  .carousel-slide {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: var(--slide-w);
+    height: var(--slide-h);
+    margin: calc(var(--slide-h) / -2) 0 0 calc(var(--slide-w) / -2);
+    padding: 0;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    overflow: hidden;
+    background: var(--dark);
+    cursor: zoom-in;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, .45);
+    transition: transform .7s cubic-bezier(.22, .8, .24, 1), opacity .7s ease;
+    will-change: transform, opacity;
+  }
+  .carousel-slide:focus-visible {
+    outline: 2px solid var(--gold-light);
+    outline-offset: 3px;
+  }
+  .carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+    pointer-events: none;
+  }
+
+  .c-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 30;
+    width: 46px;
+    height: 46px;
+    margin-top: -23px;
+    border-radius: 50%;
+    border: 1px solid var(--gold);
+    background: rgba(26, 10, 10, .7);
+    color: var(--gold-light);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: background .25s, color .25s, transform .25s;
+  }
+  .c-arrow:hover { background: var(--gold); color: var(--dark); }
+  .c-prev { left: 1rem; }
+  .c-next { right: 1rem; }
+
+  .carousel-hint {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: var(--gold);
+    opacity: .7;
+    font-size: .8rem;
+    letter-spacing: .15em;
+    text-transform: uppercase;
+  }
+
+  /* ── LIGHTBOX ── */
+  .lb {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: rgba(10, 4, 4, .95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .lb[hidden] { display: none; }
+
+  .lb-stage {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    touch-action: none;
+  }
+  .lb-img {
+    max-width: 92vw;
+    max-height: 84vh;
+    object-fit: contain;
+    cursor: zoom-in;
+    user-select: none;
+    transform-origin: center center;
+    transition: transform .2s ease, opacity .25s ease;
+    will-change: transform;
+  }
+  .lb-img.zoomed  { cursor: grab; }
+  .lb-img.dragging { cursor: grabbing; transition: none; }
+  .lb-img.swap    { opacity: 0; }
+
+  .lb-close,
+  .lb-arrow,
+  .lb-zoom {
+    border: 1px solid var(--gold);
+    background: rgba(26, 10, 10, .75);
+    color: var(--gold-light);
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    transition: background .25s, color .25s;
+  }
+  .lb-close:hover,
+  .lb-arrow:hover,
+  .lb-zoom:hover { background: var(--gold); color: var(--dark); }
+
+  .lb-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    z-index: 3;
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+  }
+  .lb-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 3;
+    width: 52px;
+    height: 52px;
+    margin-top: -26px;
+    border-radius: 50%;
+  }
+  .lb-prev { left: 1rem; }
+  .lb-next { right: 1rem; }
+
+  .lb-bar {
+    position: absolute;
+    bottom: 1.2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: .4rem .8rem;
+    border-radius: 999px;
+    background: rgba(26, 10, 10, .75);
+    border: 1px solid var(--border);
+  }
+  .lb-zoom {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    font-size: 1.3rem;
+    line-height: 1;
+  }
+  .lb-count {
+    color: var(--cream);
+    font-size: .85rem;
+    letter-spacing: .12em;
+    min-width: 4.5rem;
+    text-align: center;
+  }
+
+  @media (max-width: 700px) {
+    .carousel-section { padding: 4rem 0 3rem; }
+    .carousel-stage { --slide-w: 66vw; }
+    .c-arrow { width: 40px; height: 40px; margin-top: -20px; }
+    .c-prev { left: .4rem; }
+    .c-next { right: .4rem; }
+    .lb-arrow { width: 44px; height: 44px; margin-top: -22px; }
+    .lb-prev { left: .4rem; }
+    .lb-next { right: .4rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .carousel-slide, .lb-img { transition: none; }
+  }
+</style>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-carousel]');
+  const lb = document.querySelector<HTMLElement>('[data-lb]');
+
+  if (root && lb) {
+    const stage = root.querySelector<HTMLElement>('[data-stage]')!;
+    const slides = Array.from(root.querySelectorAll<HTMLButtonElement>('.carousel-slide'));
+    const n = slides.length;
+    const AUTOPLAY_MS = 3500;
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    let active = 0;
+    let timer: number | undefined;
+    let hovering = false;
+
+    const mod = (a: number) => ((a % n) + n) % n;
+
+    // Signed shortest distance from active (gives the infinite loop)
+    const offsetOf = (i: number) => {
+      let d = mod(i - active);
+      if (d > n / 2) d -= n;
+      return d;
+    };
+
+    function layout() {
+      const w = slides[0].offsetWidth;
+      const step = w * 0.8;
+      slides.forEach((el, i) => {
+        const o = offsetOf(i);
+        const a = Math.abs(o);
+        const scale = a === 0 ? 1 : a === 1 ? 0.8 : a === 2 ? 0.62 : 0.5;
+        const opacity = a === 0 ? 1 : a === 1 ? 0.55 : a === 2 ? 0.25 : 0;
+        const x = Math.sign(o) * Math.min(a, 3) * step;
+        el.style.transform = `translateX(${x}px) scale(${scale})`;
+        el.style.opacity = String(opacity);
+        el.style.zIndex = String(10 - a);
+        el.style.pointerEvents = a <= 2 ? 'auto' : 'none';
+        el.tabIndex = a === 0 ? 0 : -1;
+        el.setAttribute('aria-hidden', a > 2 ? 'true' : 'false');
+      });
+    }
+
+    function go(to: number) {
+      active = mod(to);
+      layout();
+    }
+    const next = () => go(active + 1);
+    const prev = () => go(active - 1);
+
+    // ── Autoplay ──
+    function stop() { if (timer) { clearInterval(timer); timer = undefined; } }
+    function play() {
+      stop();
+      if (reduceMotion || hovering || !lb!.hidden) return;
+      timer = window.setInterval(next, AUTOPLAY_MS);
+    }
+
+    root.querySelector('[data-next]')!.addEventListener('click', () => { next(); play(); });
+    root.querySelector('[data-prev]')!.addEventListener('click', () => { prev(); play(); });
+
+    root.addEventListener('mouseenter', () => { hovering = true; stop(); });
+    root.addEventListener('mouseleave', () => { hovering = false; play(); });
+    root.addEventListener('focusin', stop);
+    root.addEventListener('focusout', play);
+    document.addEventListener('visibilitychange', () => (document.hidden ? stop() : play()));
+
+    // ── Swipe on the carousel ──
+    let sx = 0, sy = 0, swiped = false;
+    stage.addEventListener('pointerdown', (e) => { sx = e.clientX; sy = e.clientY; swiped = false; });
+    stage.addEventListener('pointerup', (e) => {
+      const dx = e.clientX - sx;
+      if (Math.abs(dx) > 50 && Math.abs(e.clientY - sy) < 60) {
+        swiped = true;
+        dx < 0 ? next() : prev();
+        play();
+      }
+    });
+
+    slides.forEach((el, i) => {
+      el.addEventListener('click', () => {
+        if (swiped) { swiped = false; return; }
+        openLightbox(i);
+      });
+    });
+
+    window.addEventListener('resize', layout);
+    layout();
+    play();
+
+    // ── Lightbox ──
+    const img = lb.querySelector<HTMLImageElement>('[data-lb-img]')!;
+    const lbStage = lb.querySelector<HTMLElement>('[data-lb-stage]')!;
+    const count = lb.querySelector<HTMLElement>('[data-lb-count]')!;
+    const closeBtn = lb.querySelector<HTMLButtonElement>('[data-lb-close]')!;
+
+    let current = 0;
+    let scale = 1, tx = 0, ty = 0;
+    let lastFocus: HTMLElement | null = null;
+    const MAX_SCALE = 5;
+
+    function clampPan() {
+      const maxX = Math.max(0, (img.clientWidth * scale - lbStage.clientWidth) / 2);
+      const maxY = Math.max(0, (img.clientHeight * scale - lbStage.clientHeight) / 2);
+      tx = Math.min(maxX, Math.max(-maxX, tx));
+      ty = Math.min(maxY, Math.max(-maxY, ty));
+    }
+    function applyTransform() {
+      if (scale <= 1) { scale = 1; tx = 0; ty = 0; }
+      clampPan();
+      img.style.transform = `translate(${tx}px, ${ty}px) scale(${scale})`;
+      img.classList.toggle('zoomed', scale > 1);
+    }
+    function setScale(s: number) {
+      scale = Math.min(MAX_SCALE, Math.max(1, s));
+      applyTransform();
+    }
+    function resetZoom() { scale = 1; tx = 0; ty = 0; applyTransform(); }
+
+    function show(i: number, animate = true) {
+      current = mod(i);
+      const s = slides[current].querySelector('img')!;
+      const apply = () => {
+        resetZoom();
+        img.src = s.getAttribute('src')!;
+        img.alt = s.alt;
+        count.textContent = `${current + 1} / ${n}`;
+        img.classList.remove('swap');
+      };
+      if (animate && !reduceMotion) {
+        img.classList.add('swap');
+        window.setTimeout(apply, 140);
+      } else {
+        apply();
+      }
+      // preload neighbours
+      [mod(current + 1), mod(current - 1)].forEach((k) => {
+        const p = new Image();
+        p.src = slides[k].querySelector('img')!.getAttribute('src')!;
+      });
+    }
+
+    function openLightbox(i: number) {
+      lastFocus = document.activeElement as HTMLElement;
+      stop();
+      lb!.hidden = false;
+      document.body.style.overflow = 'hidden';
+      show(i, false);
+      closeBtn.focus();
+    }
+    function closeLightbox() {
+      lb!.hidden = true;
+      document.body.style.overflow = '';
+      go(current); // carousel stays on the last viewed image
+      play();
+      lastFocus?.focus?.();
+    }
+
+    closeBtn.addEventListener('click', closeLightbox);
+    lb.querySelector('[data-lb-next]')!.addEventListener('click', () => show(current + 1));
+    lb.querySelector('[data-lb-prev]')!.addEventListener('click', () => show(current - 1));
+    lb.querySelector('[data-lb-zoom-in]')!.addEventListener('click', () => setScale(scale * 1.5));
+    lb.querySelector('[data-lb-zoom-out]')!.addEventListener('click', () => setScale(scale / 1.5));
+
+    // Click on the dark backdrop closes
+    lbStage.addEventListener('click', (e) => { if (e.target === lbStage) closeLightbox(); });
+
+    // Keyboard
+    document.addEventListener('keydown', (e) => {
+      if (lb.hidden) return;
+      if (e.key === 'Escape') closeLightbox();
+      else if (e.key === 'ArrowRight') show(current + 1);
+      else if (e.key === 'ArrowLeft') show(current - 1);
+      else if (e.key === '+' || e.key === '=') setScale(scale * 1.5);
+      else if (e.key === '-') setScale(scale / 1.5);
+      else if (e.key === 'Tab') {
+        // keep focus inside the dialog
+        const f = Array.from(lb.querySelectorAll<HTMLElement>('button')).filter((b) => !b.hidden);
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
+    });
+
+    // Wheel zoom
+    lbStage.addEventListener('wheel', (e) => {
+      e.preventDefault();
+      setScale(scale * Math.exp(-e.deltaY * 0.0018));
+    }, { passive: false });
+
+    // Pointer: click-to-zoom, drag-to-pan, pinch, swipe
+    const pointers = new Map<number, { x: number; y: number }>();
+    let startDist = 0, startScale = 1;
+    let downX = 0, downY = 0, moved = false, startTx = 0, startTy = 0;
+
+    img.addEventListener('pointerdown', (e) => {
+      img.setPointerCapture(e.pointerId);
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 1) {
+        downX = e.clientX; downY = e.clientY; moved = false;
+        startTx = tx; startTy = ty;
+        if (scale > 1) img.classList.add('dragging');
+      } else if (pointers.size === 2) {
+        const [a, b] = Array.from(pointers.values());
+        startDist = Math.hypot(a.x - b.x, a.y - b.y);
+        startScale = scale;
+        moved = true;
+      }
+    });
+
+    img.addEventListener('pointermove', (e) => {
+      if (!pointers.has(e.pointerId)) return;
+      pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+      if (pointers.size === 2) {
+        const [a, b] = Array.from(pointers.values());
+        const d = Math.hypot(a.x - b.x, a.y - b.y);
+        if (startDist) setScale(startScale * (d / startDist));
+      } else if (pointers.size === 1) {
+        const dx = e.clientX - downX, dy = e.clientY - downY;
+        if (Math.abs(dx) > 5 || Math.abs(dy) > 5) moved = true;
+        if (scale > 1) {
+          tx = startTx + dx;
+          ty = startTy + dy;
+          applyTransform();
+        }
+      }
+    });
+
+    function endPointer(e: PointerEvent) {
+      if (!pointers.has(e.pointerId)) return;
+      const wasSingle = pointers.size === 1;
+      pointers.delete(e.pointerId);
+      img.classList.remove('dragging');
+      if (!wasSingle) return;
+      const dx = e.clientX - downX, dy = e.clientY - downY;
+      if (!moved) {
+        // simple click: toggle zoom
+        setScale(scale > 1 ? 1 : 2.5);
+      } else if (scale === 1 && Math.abs(dx) > 60 && Math.abs(dy) < 60) {
+        show(dx < 0 ? current + 1 : current - 1);
+      }
+    }
+    img.addEventListener('pointerup', endPointer);
+    img.addEventListener('pointercancel', endPointer);
+
+    window.addEventListener('resize', () => { if (!lb.hidden) applyTransform(); });
+  }
+</script>
